@@ -27,8 +27,60 @@ class Net(nn.Module):
         #    nn.ReLU(),
         #    nn.MaxPool2d(kernel_size=2, stride=2))
         
-        self.layer1 = nn.Sequential(
-            nn.Conv2d(1,32,kernel_size=4,stride=1)
+        #input hxw = 224
+        self.conv1 = nn.Sequential(
+            nn.Conv2d(1,32,kernel_size=5,stride=1),
+            nn.Relu(),
+            nn.MaxPool2d(kernel_size=2,stride=2),
+            nn.Dropout(p=0.1)
+        )
+        #out = 110
+        
+        self.conv2 = nn.Sequential(
+            nn.Conv2d(32,64,kernel_size=3,stride=1),
+            nn.Relu(),
+            nn.MaxPool2d(kernel_size=2,stride=2),
+            nn.Dropout(p=0.2)
+        )
+        #out= 54
+        
+        self.conv3 = nn.Sequential(
+            nn.Conv2d(64,128,kernel_size=3,stride=1),
+            nn.Relu(),
+            nn.MaxPool2d(kernel_size=2,stride=2),
+            nn.Dropout(p=0.3)
+        )
+        #out=26
+        
+        self.conv4 = nn.Sequential(
+            nn.Conv2d(128,256,kernel_size=3,stride=1),
+            nn.Relu(),
+            nn.MaxPool2d(kernel_size=2,stride=2),
+            nn.Dropout(p=0.4)
+        )
+        #out=12
+        self.conv5 = nn.Sequential(
+            nn.Conv2d(256,512,kernel_size=3,stride=1),
+            nn.Relu(),
+            nn.MaxPool2d(kernel_size=2,stride=2),
+            nn.Dropout(p=0.4)
+        )
+        #out=5
+        
+        self.dense1 = nn.Sequential(
+            nn.Linear(512*5*5,1000),
+            nn.Relu(),
+            nn.Dropout(p=0.5)           
+        )
+        
+        self.dense2 = nn.Sequential(
+            nn.Linear(1000,1000),
+            nn.Relu(),
+            nn.Dropout(p=0.6)           
+        )
+        
+        self.dense3 = nn.Sequential(
+            nn.Linear(1000,2),
         )
         
         
