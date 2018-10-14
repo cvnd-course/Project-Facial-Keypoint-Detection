@@ -41,19 +41,23 @@ class Net(nn.Module):
             nn.Conv2d(128,256,kernel_size=2,stride=1),
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2,stride=2),
-            nn.Dropout(p=0.4),#out=12            
+            nn.Dropout(p=0.4),#out=12
+            nn.AvgPool2d(1)
         )
+        
+        
         self.densenet = nn.Sequential(
             #dense1
-            nn.Linear(256*12*12,1000),
-            nn.ReLU(),
-            nn.Dropout(p=0.5) ,
+            #nn.Linear(256*12*12,1000),
+            #nn.ReLU(),
+            #nn.Dropout(p=0.5) ,
             #dense2
-            nn.Linear(1000,1000),
-            nn.ReLU(),
-            nn.Dropout(p=0.6),
+            #nn.Linear(1000,1000),
+            #nn.ReLU(),
+            #nn.Dropout(p=0.6),
             #dense3
-            nn.Linear(1000,2*68),
+            #nn.Linear(1000,2*68),
+            nn.Linear(36864,2*68)
         )
 
       
@@ -69,8 +73,8 @@ class Net(nn.Module):
         ## x is the input image and, as an example, here you may choose to include a pool/conv step:
         ## x = self.pool(F.relu(self.conv1(x)))
         x = self.convnet(x)
-        x = x.view(x.size(0), -1)
-        x = self.densenet(x)      
+        x = x.view(x.size(0), -1)        
+        x = self.densenet(x)
         
         # a modified x, having gone through all the layers of your model, should be returned
         return x
