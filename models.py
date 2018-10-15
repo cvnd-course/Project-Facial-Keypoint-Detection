@@ -24,22 +24,22 @@ class Net(nn.Module):
         self.convnet = nn.Sequential(
             #conv1
             nn.Conv2d(1,32,kernel_size=5,stride=1),
-            nn.ReLU(),
+            nn.ELU(),
             nn.MaxPool2d(kernel_size=2,stride=2),
             nn.Dropout(p=0.1),#out = 110
             #conv2
             nn.Conv2d(32,64,kernel_size=3,stride=1),
-            nn.ReLU(),
+            nn.ELU(),
             nn.MaxPool2d(kernel_size=2,stride=2),
             nn.Dropout(p=0.2),#out= 54
             #conv3
             nn.Conv2d(64,128,kernel_size=3,stride=1),
-            nn.ReLU(),
+            nn.ELU(),
             nn.MaxPool2d(kernel_size=2,stride=2),
             nn.Dropout(p=0.3),#out=26
             #conv4
             nn.Conv2d(128,256,kernel_size=2,stride=1),
-            nn.ReLU(),
+            nn.ELU(),
             nn.MaxPool2d(kernel_size=2,stride=2),
             nn.Dropout(p=0.4),#out=12
             nn.AvgPool2d(1)
@@ -49,11 +49,11 @@ class Net(nn.Module):
         self.densenet = nn.Sequential(
             #dense1
             #nn.Linear(256*12*12,1000),
-            #nn.ReLU(),
+            #nn.ELU(),
             #nn.Dropout(p=0.5) ,
             #dense2
             #nn.Linear(1000,1000),
-            #nn.ReLU(),
+            #nn.ELU(),
             #nn.Dropout(p=0.6),
             #dense3
             #nn.Linear(1000,2*68),
